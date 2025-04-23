@@ -62,35 +62,3 @@ class Solution:
             parent.right = child
 
         return root
-
-
-    def deleteNode_(self, root, key):
-        if not root:
-            return None
-
-        if key < root.val:
-            root.left = self.deleteNode(root.left, key)
-        elif key > root.val:
-            root.right = self.deleteNode(root.right, key)
-        else:
-            # Node found
-            if not root.left:
-                return root.right
-            if not root.right:
-                return root.left
-
-            # Node with two children
-            min_larger = self.get_min(root.right)
-            root.val = min_larger.val
-            root.right = self.deleteNode(root.right, min_larger.val)
-
-        return root
-
-    def get_min(self, node):
-        while node.left:
-            node = node.left
-        return node
-
-
-starting = TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7)))
-result = Solution().deleteNode(starting, 3)
